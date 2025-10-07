@@ -31,20 +31,20 @@ jobs:
             
       - name: Setup Poetry
         run: |
+            echo 'if (-not (Get-Command poetry -ErrorAction Ignore)) { $env:Path += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts" }' | Out-File -Append $PROFILE
             poetry --version
             poetry config virtualenvs.in-project true
             
       - name: Install dependencies
         run: |
+          echo 'if (-not (Get-Command poetry -ErrorAction Ignore)) { $env:Path += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts" }' | Out-File -Append $PROFILE
           python -m pip install --upgrade pip
           # Install additional dependencies if needed
           poetry install
 
       - name: Run Robot Framework tests
-        env:
-          WORK_TOKEN: ${{ secrets.GIT_TOKEN }}
-          TZ: Asia/Ho_Chi_Minh
         run: |
+          echo 'if (-not (Get-Command poetry -ErrorAction Ignore)) { $env:Path += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts" }' | Out-File -Append $PROFILE
           poetry run robot -d results .
 
       - name: Upload artifact
