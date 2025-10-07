@@ -24,16 +24,17 @@ jobs:
             python --version
             python -m venv .venv
                   
+      - name: Set Poetry Path
+        run: echo "POETRY_HOME=C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_ENV
+      
+      - name: Add Poetry to PATH
+        run: echo "$POETRY_HOME" >> $GITHUB_PATH
+      
       - name: Install Poetry
-        run: |
-            (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-            [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts", "User")
-            
-      - name: Setup Poetry
-        run: |
-            echo 'if (-not (Get-Command poetry -ErrorAction Ignore)) { $env:Path += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts" }' | Out-File -Append $PROFILE
-            poetry --version
-            poetry config virtualenvs.in-project true
+        run: python -m pip install poetry==2.2.1
+      
+      - name: Check Poetry Version
+        run: poetry --version
             
       - name: Install dependencies
         run: |
