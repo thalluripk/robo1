@@ -8,10 +8,14 @@ on:
 jobs:
   test:
     runs-on: windows-latest
+    env:
+      PRIYANKA_SECRET: ${{secrets.Priyanka_Secret}}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Display Secret
+        run: echo $PRIYANKA_SECRET
 
       - name: Set up Python
         uses: actions/setup-python@v4
