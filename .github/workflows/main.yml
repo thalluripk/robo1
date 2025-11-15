@@ -2,6 +2,13 @@ name: Run Robot Framework Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      server_url:
+        type: choice
+        required: true
+        options:
+        - QA
+        - Staging
 
 jobs:
   test:
